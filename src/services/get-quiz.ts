@@ -10,7 +10,7 @@ export type PathProps = {
 export async function getQuiz({
     subjectPath,
     themePath,
-}: PathProps): Promise<Quiz | {}> {
+}: PathProps): Promise<Quiz | object> {
     try {
         const response = await fetch(
             `${BASE_URL}/${subjectPath}/${themePath}`,

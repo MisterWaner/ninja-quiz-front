@@ -30,7 +30,7 @@ export type QuizState = {
 
 export type QuizAction = {
     getSubjectLists: () => Promise<Subject[]>;
-    getQuizData: (pathProps: PathProps) => Promise<Quiz | {}>;
+    getQuizData: (pathProps: PathProps) => Promise<Quiz | object>;
     handleNextQuestion: () => void;
     checkUserAnswer: (userAnswer: QuizState['userAnswer']) => void;
     incrementProgress: () => void;
@@ -98,7 +98,7 @@ export const useQuizStore = create<QuizState & QuizAction>((set, get) => ({
     async getQuizData({
         subjectPath,
         themePath,
-    }: PathProps): Promise<Quiz | {}> {
+    }: PathProps): Promise<Quiz | object> {
         let { questionType, quiz, questions } = get();
         quiz = (await getQuiz({ subjectPath, themePath })) as Quiz;
         questionType = quiz.questionType;
