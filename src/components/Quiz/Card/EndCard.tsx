@@ -7,6 +7,7 @@ import {
 } from '@/components/ui/card';
 
 import { useQuizStore } from '@/store/quiz-store';
+import SaveScoreModal from '../Modals/SaveScoreModal';
 
 export default function EndCard() {
     const score = useQuizStore((state) => state.score);
@@ -24,7 +25,9 @@ export default function EndCard() {
                     !
                 </p>
             </CardContent>
-            <CardFooter className='justify-end'>coucou</CardFooter>
+            <CardFooter className='justify-end'>
+                <SaveScoreModal />
+            </CardFooter>
         </Card>
     );
 }

@@ -73,7 +73,7 @@ export default function NextQuestionModal({
                 <AlertDialogFooter>
                     <AlertDialogAction asChild className={dialog.actionStyle}>
                         <Button
-                            className='font-semibold w-2/6 cursor-pointer'
+                            className='font-semibold w-full sm:w-2/6 cursor-pointer'
                             onClick={() => {
                                 handleNextQuestion();
                                 handleResetTimer();

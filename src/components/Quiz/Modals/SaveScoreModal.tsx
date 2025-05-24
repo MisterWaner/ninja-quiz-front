@@ -61,7 +61,7 @@ export default function SaveScoreModal() {
     return (
         <AlertDialog>
             <AlertDialogTrigger asChild>
-                <Button className='font-semibold w-3/6 cursor-pointer'>
+                <Button className='font-semibold sm:w-3/6 w-full cursor-pointer'>
                     Enregistrer mon score
                 </Button>
             </AlertDialogTrigger>
@@ -71,10 +71,10 @@ export default function SaveScoreModal() {
                         Ton score a été enregistré !
                     </AlertDialogTitle>
                 </AlertDialogHeader>
-                <AlertDialogFooter className='flex gap-2'>
+                <AlertDialogFooter className='flex flex-col gap-2'>
                     <AlertDialogAction asChild>
                         <Button
-                            className='font-semibold w-3/6 cursor-pointer'
+                            className='font-semibold w-full sm:w-3/6 cursor-pointer'
                             onClick={() => handleRestartQuiz()}
                         >
                             Recommencer
@@ -83,7 +83,7 @@ export default function SaveScoreModal() {
                     </AlertDialogAction>
                     <AlertDialogAction asChild>
                         <Button
-                            className='font-semibold w-3/6 cursor-pointer'
+                            className='font-semibold w-full sm:w-3/6 cursor-pointer'
                             onClick={() => handleSaveScore()}
                         >
                             Tous les quiz
