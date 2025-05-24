@@ -47,7 +47,7 @@ export default function DirectQuestionCard() {
 
     return (
         <Card
-            className='md:w-1/2 mx-auto mt-24'
+            className='md:w-2/3 lg:w-1/2 mx-auto mt-24'
             onMouseEnter={() => {
                 if (!isTimerRunning && timer > 0) startTimer(timer);
             }}
@@ -57,7 +57,7 @@ export default function DirectQuestionCard() {
             </CardHeader>
             <CardContent>
                 <p className='text-sm italic'>{currentQuestion.questionText}</p>
-                <div className='grid grid-cols-3 items-center gap-4 mt-4'>
+                <div className='grid grid-cols-1 sm:grid-cols-3 items-center gap-4 mt-4'>
                     <Label>Ta réponse :</Label>
                     <Input
                         type='text'

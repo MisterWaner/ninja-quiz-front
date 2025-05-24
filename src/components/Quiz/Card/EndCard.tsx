@@ -12,7 +12,7 @@ export default function EndCard() {
     const score = useQuizStore((state) => state.score);
 
     return (
-        <Card className='md:w-1/2 mx-auto mt-24'>
+        <Card className='md:w-2/3 lg:w-1/2 mx-auto mt-24'>
             <CardHeader>
                 <CardTitle className='text-center text-lg uppercase'>
                     Fin !

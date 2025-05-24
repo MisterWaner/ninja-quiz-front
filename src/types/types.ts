@@ -20,7 +20,7 @@ export interface QuestionBase {
     questionType: QuestionType;
     theme: Theme;
     questionText: string;
-    imageUrl?: string;
+    imgUrl?: string;
 }
 
 export interface MultipleChoiceQuestion extends QuestionBase {

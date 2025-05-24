@@ -6,7 +6,7 @@ export default function ProgressBar() {
 
     return (
         <>
-            <Progress value={progress} className='md:w-1/2 h-4 mx-auto mt-10' />
+            <Progress value={progress} className='md:w-2/3 lg:w-1/2 h-4 mx-auto mt-10' />
             <div className='mt-2 text-2xl font-bold text-center'>
                 {progress}%
             </div>

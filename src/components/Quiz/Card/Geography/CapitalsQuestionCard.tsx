@@ -7,7 +7,7 @@ import {
     CardTitle,
     CardFooter,
 } from '@/components/ui/card';
-import { Label } from '@/components/ui/label';
+
 import NextQuestionModal from '@/components/Quiz/Modals/NextQuestionModal';
 import CapitalsRadioGroup from '@/components/Quiz/RadioGroup/CapitalsRadioGroup';
 import Timer from '@/components/Quiz/Timer';
@@ -41,7 +41,7 @@ export default function CapitalsQuestionCard() {
 
     return (
         <Card
-            className='md:w-1/2 mx-auto mt-24'
+            className='md:w-2/3 lg:w-1/2 mx-auto mt-24'
             onMouseEnter={() => {
                 if (!isTimerRunning && timer > 0) startTimer(timer);
             }}
@@ -53,7 +53,7 @@ export default function CapitalsQuestionCard() {
                 <p className='text-sm italic'>
                     {currentQuestion?.questionText}
                 </p>
-                <Label className='mt-4'>Ta réponse :</Label>
+                
 
                 <CapitalsRadioGroup handleRadioInput={handleRadioInput} />
                 <Timer />

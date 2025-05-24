@@ -20,16 +20,17 @@ export default function FlagsRadioGroup({
 
     return (
         <RadioGroup
-            className='grid grid-cols-2 items-center gap-4 mt-4'
+            className='lg:w-1/2'
             value={userAnswer as string}
             onValueChange={handleRadioInput}
         >
-            {('options' in currentQuestion ? currentQuestion.options : []).map(
-                (option, index) => (
-                    <div
-                        className='flex items-center space-x-4 w-full'
-                        key={index}
-                    >
+            <Label className='mt-10 md:mt-4'>Ta réponse :</Label>
+            <div className='grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4'>
+                {('options' in currentQuestion
+                    ? currentQuestion.options
+                    : []
+                ).map((option, index) => (
+                    <div className='flex items-center space-x-4' key={index}>
                         <RadioGroupItem
                             value={option as string}
                             id={option as string}
@@ -43,8 +44,8 @@ export default function FlagsRadioGroup({
                             {option as string}
                         </Label>
                     </div>
-                )
-            )}
+                ))}
+            </div>
         </RadioGroup>
     );
 }

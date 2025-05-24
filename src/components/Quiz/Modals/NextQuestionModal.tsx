@@ -55,7 +55,7 @@ export default function NextQuestionModal({
         <AlertDialog open={isModalOpen} onOpenChange={setIsModalOpen}>
             <AlertDialogTrigger asChild>
                 <Button
-                    className='font-semibold w-2/6 cursor-pointer'
+                    className='font-semibold sm:w-2/6 w-full cursor-pointer'
                     onClick={handleSubmit}
                 >
                     Valider

@@ -7,7 +7,7 @@ import {
     CardTitle,
     CardFooter,
 } from '@/components/ui/card';
-import { Label } from '@/components/ui/label';
+
 import NextQuestionModal from '@/components/Quiz/Modals/NextQuestionModal';
 import FlagsRadioGroup from '@/components/Quiz/RadioGroup/FlagsRadioGroup';
 import Timer from '@/components/Quiz/Timer';
@@ -41,7 +41,7 @@ export default function FlagsQuestionCard() {
 
     return (
         <Card
-            className='md:w-1/2 mx-auto mt-24'
+            className='md:w-2/3 lg:w-1/2 mx-auto mt-24'
             onMouseEnter={() => {
                 if (!isTimerRunning && timer > 0) startTimer(timer);
             }}
@@ -50,17 +50,17 @@ export default function FlagsQuestionCard() {
                 <CardTitle>Question {currentQuestionIndex + 1}</CardTitle>
             </CardHeader>
             <CardContent>
-                <div className='text-sm italic flex items-center gap-4'>
+                <div className='text-sm italic flex flex-col items-center gap-10'>
                     <span>{currentQuestion?.questionText}</span>
-                    {currentQuestion?.imageUrl && (
+                    {currentQuestion?.imgUrl && (
                         <img
-                            src={currentQuestion.imageUrl}
+                            src={currentQuestion.imgUrl}
                             alt={`Drapeau de ${currentQuestion.correctAnswer}`}
-                            className='w-32 h-20 '
+                            className='w-32 h-20 border-2 border-slate-950'
                         />
                     )}
                 </div>
-                <Label className='mt-4'>Ta réponse :</Label>
+                
 
                 <FlagsRadioGroup handleRadioInput={handleRadioInput} />
                 <Timer />
