@@ -44,7 +44,7 @@ export async function login(user: User) {
         if (!response.ok) {
             throw new Error('Erreur lors de la connexion');
         }
-        const {token} = await response.json();
+        const { token } = await response.json();
         const { id, username } = jwtDecode<User>(token);
 
         Cookies.set('token', token, {
@@ -60,15 +60,11 @@ export async function login(user: User) {
     }
 }
 
-export async function logout(user: User) {
+export async function logout() {
     try {
         const response = await fetch(`${BASE_URL}/logout`, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
             credentials: 'include',
-            body: JSON.stringify(user),
         });
 
         // Log the API response status and body
@@ -90,5 +86,30 @@ export async function logout(user: User) {
     } finally {
         Cookies.remove('token');
         localStorage.removeItem('score');
+    }
+}
+
+export async function getCurrentUser() {
+    try {
+        const response = await fetch(`${BASE_URL}/me`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            credentials: 'include',
+        });
+
+        if (!response.ok) {
+            throw new Error('Utilisateur non authentifié');
+        }
+
+        const user = (await response.json()) as User;
+        return user;
+    } catch (error) {
+        console.error(
+            error,
+            "Une erreur est survenue lors de la récupération de l'utilisateur"
+        );
+        throw error;
     }
 }

@@ -11,7 +11,11 @@ import {
 } from '@/components/ui/sidebar';
 import { userMenuLinks } from '@/lib/menu-links';
 
+import { useAuthStore } from '@/store/auth-store';
+
 export default function AccountSideBar() {
+    const { logoutUser } = useAuthStore();
+
     return (
         <Sidebar className='fixed bg-slate-950 top-28 h-full'>
             <SidebarContent className='bg-slate-950 text-white w-full'>
@@ -38,7 +42,7 @@ export default function AccountSideBar() {
                                 <SidebarMenuButton asChild>
                                     <Link
                                         to='/connexion'
-                                        //onClick={() => handleLogout()}
+                                        onClick={logoutUser}
                                     >
                                         <LogOut />
                                         <span>Déconnexion</span>

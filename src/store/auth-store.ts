@@ -27,7 +27,7 @@ export type AuthState = {
 type AuthAction = {
     loginUser: (user: User) => Promise<void>;
     registerUser: (user: User) => Promise<void>;
-    logoutUser: (user: User) => Promise<void>;
+    logoutUser: () => Promise<void>;
     setShowLoginModal: (showLoginModal: boolean) => void;
     setShowRegisterModal: (showRegisterModal: boolean) => void;
     resetLoginModal: () => void;
@@ -112,9 +112,9 @@ export const useAuthStore = create<AuthState & AuthAction>()(
                 }
             },
 
-            logoutUser: async (user: User) => {
+            logoutUser: async () => {
                 try {
-                    await logoutUser(user);
+                    await logoutUser();
                     localStorage.removeItem('auth-store');
                     localStorage.removeItem('score');
                     console.log('déconnexion réussie');
