@@ -5,6 +5,7 @@ import {
     register as registerUser,
     login as loginUser,
     logout as logoutUser,
+    getCurrentUser as getUser,
 } from '@/services/auth-services';
 
 export type AuthState = {
@@ -22,6 +23,8 @@ export type AuthState = {
     };
     showLoginModal: boolean;
     showRegisterModal: boolean;
+    currentUser: User | null;
+    loading: boolean;
 };
 
 type AuthAction = {
@@ -32,6 +35,7 @@ type AuthAction = {
     setShowRegisterModal: (showRegisterModal: boolean) => void;
     resetLoginModal: () => void;
     resetRegisterModal: () => void;
+    fetchCurrentUser: () => Promise<void>;
 };
 
 export const useAuthStore = create<AuthState & AuthAction>()(
@@ -51,6 +55,8 @@ export const useAuthStore = create<AuthState & AuthAction>()(
             },
             showLoginModal: false,
             showRegisterModal: false,
+            currentUser: null,
+            loading: false,
 
             loginUser: async (user: User) => {
                 try {
@@ -109,6 +115,18 @@ export const useAuthStore = create<AuthState & AuthAction>()(
                         showRegisterModal: true,
                     });
                     console.error("Erreur d'inscription:", error);
+                }
+            },
+            fetchCurrentUser: async () => {
+                set({ loading: true });
+                try {
+                    const user = await getUser();
+                    set({ currentUser: user });
+                } catch (error) {
+                    console.error(error);
+                    set({ currentUser: null });
+                } finally {
+                    set({ loading: false });
                 }
             },
 

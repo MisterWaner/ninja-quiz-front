@@ -15,8 +15,7 @@ import NextQuestionModal from '@/components/Quiz/Modals/NextQuestionModal';
 import { useQuizStore } from '@/store/quiz-store';
 
 export default function DirectQuestionCard() {
-    const { isTimerRunning, startTimer, resetTimer } =
-        useQuizStore();
+    const { isTimerRunning, startTimer, resetTimer } = useQuizStore();
 
     const userAnswer = useQuizStore((state) => state.userAnswer);
     const quiz = useQuizStore((state) => state.quiz);
@@ -56,7 +55,9 @@ export default function DirectQuestionCard() {
                 <CardTitle>Question {currentQuestionIndex + 1}</CardTitle>
             </CardHeader>
             <CardContent>
-                <p className='text-sm italic'>{currentQuestion.questionText}</p>
+                <p className='text-sm italic whitespace-pre-line'>
+                    {currentQuestion.questionText}
+                </p>
                 <div className='grid grid-cols-1 sm:grid-cols-3 items-center gap-4 mt-4'>
                     <Label>Ta réponse :</Label>
                     <Input

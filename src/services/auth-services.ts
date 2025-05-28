@@ -1,6 +1,6 @@
 import type { User } from '@/types/types';
 import Cookies from 'js-cookie';
-import { jwtDecode } from 'jwt-decode';
+
 
 const BASE_URL = 'http://localhost:3001/auth';
 
@@ -44,16 +44,7 @@ export async function login(user: User) {
         if (!response.ok) {
             throw new Error('Erreur lors de la connexion');
         }
-        const { token } = await response.json();
-        const { id, username } = jwtDecode<User>(token);
-
-        Cookies.set('token', token, {
-            expires: 1,
-            secure: true,
-            sameSite: 'None',
-        });
-
-        return { id, username };
+        
     } catch (error) {
         console.error(error, 'Une erreur est survenue lors de la connexion');
         throw error;

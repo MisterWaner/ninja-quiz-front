@@ -1,6 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import {
     Form,
@@ -21,9 +22,18 @@ export default function LoginForm() {
     const form = useForm<z.infer<typeof loginSchema>>({
         resolver: zodResolver(loginSchema),
     });
+    const queryClient = useQueryClient();
 
+    
     const { login, setShowLoginModal, showLoginModal, loginUser } =
-        useAuthStore();
+    useAuthStore();
+    
+    const loginMutation = useMutation({
+        mutationFn: loginUser,
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['currentUser'] });
+        }
+    })
 
     function resetForm(): void {
         form.reset({
@@ -34,7 +44,7 @@ export default function LoginForm() {
 
     async function handleLogin(values: z.infer<typeof loginSchema>) {
         try {
-            await loginUser(values);
+            loginMutation.mutate(values);
             console.log('Formulaire valide');
         } catch (error) {
             if (error instanceof Error) {
