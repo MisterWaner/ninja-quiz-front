@@ -1,6 +1,4 @@
 import type { User } from '@/types/types';
-import Cookies from 'js-cookie';
-
 
 const BASE_URL = 'http://localhost:3001/auth';
 
@@ -67,7 +65,6 @@ export async function logout() {
             throw new Error('Erreur lors de la déconnexion');
         }
 
-        Cookies.remove('token');
         localStorage.removeItem('score');
         console.log('déconnexion réussie');
         window.location.reload();
@@ -75,12 +72,11 @@ export async function logout() {
         console.error(error, 'Une erreur est survenue lors de la déconnexion');
         throw error;
     } finally {
-        Cookies.remove('token');
         localStorage.removeItem('score');
     }
 }
 
-export async function getCurrentUser() {
+export async function getCurrentUser(): Promise<User> {
     try {
         const response = await fetch(`${BASE_URL}/me`, {
             method: 'GET',
@@ -95,6 +91,7 @@ export async function getCurrentUser() {
         }
 
         const user = (await response.json()) as User;
+        console.log(user);
         return user;
     } catch (error) {
         console.error(

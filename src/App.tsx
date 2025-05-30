@@ -12,6 +12,7 @@ import GameRoot from '@/pages/game/GameRoot';
 import Quiz from '@/pages/game/Quiz';
 import AccountHome from './pages/account/AccountHome';
 import AccountSettings from './pages/account/AccountSettings';
+import ProtectedRoutes from '@/utils/ProtectedRoutes';
 
 function App() {
     return (
@@ -31,13 +32,15 @@ function App() {
                         </Route>
                     </Route>
 
-                    <Route element={<AccountLayout />}>
-                        <Route path='mon-compte'>
-                            <Route index element={<AccountHome />} />
-                            <Route
-                                path='parametres'
-                                element={<AccountSettings />}
-                            />
+                    <Route  element={<ProtectedRoutes />}>
+                        <Route element={<AccountLayout />}>
+                            <Route path='mon-compte'>
+                                <Route index element={<AccountHome />} />
+                                <Route
+                                    path='parametres'
+                                    element={<AccountSettings />}
+                                />
+                            </Route>
                         </Route>
                     </Route>
                 </Routes>

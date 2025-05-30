@@ -29,7 +29,8 @@ export default function ScoreByTheme() {
                     <TableCell>80</TableCell>
                 </TableRow>
                 <TableRow className='font-bold'>
-                    <TableCell>Total</TableCell>
+                    <TableCell colSpan={2}>Total</TableCell>
+                    
                     <TableCell>180</TableCell>
                 </TableRow>
             </TableBody>

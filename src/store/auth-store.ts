@@ -35,7 +35,7 @@ type AuthAction = {
     setShowRegisterModal: (showRegisterModal: boolean) => void;
     resetLoginModal: () => void;
     resetRegisterModal: () => void;
-    fetchCurrentUser: () => Promise<void>;
+    fetchCurrentUser: () => Promise<User>;
 };
 
 export const useAuthStore = create<AuthState & AuthAction>()(
@@ -117,14 +117,16 @@ export const useAuthStore = create<AuthState & AuthAction>()(
                     console.error("Erreur d'inscription:", error);
                 }
             },
-            fetchCurrentUser: async () => {
+            fetchCurrentUser: async (): Promise<User> => {
                 set({ loading: true });
                 try {
                     const user = await getUser();
                     set({ currentUser: user });
+                    return user;
                 } catch (error) {
                     console.error(error);
                     set({ currentUser: null });
+                    throw error;
                 } finally {
                     set({ loading: false });
                 }
