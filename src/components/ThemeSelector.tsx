@@ -18,9 +18,7 @@ export default function ThemeSelector() {
         queryKey: ['subjects'],
         queryFn: getSubjectLists,
     });
-
-    console.log(data);
-
+    
     return (
         <div className='mt-4 flex flex-col md:flex-row gap-4 md:w-2/4'>
             {data?.map(({ name, id, themes, subjectPath }) => (
@@ -31,7 +29,7 @@ export default function ThemeSelector() {
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className='md:w-96 w-56' align='start'>
-                        {themes.map(({ name, id, themePath }: Theme) => (
+                        {themes.sort((a, b) => a.name.localeCompare(b.name)).map(({ name, id, themePath }: Theme) => (
                             <DropdownMenuItem key={id}>
                                 <Link
                                     to={`${themePath}`}

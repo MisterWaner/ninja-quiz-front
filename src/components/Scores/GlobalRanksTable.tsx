@@ -1,3 +1,4 @@
+import { useQuery } from '@tanstack/react-query';
 import {
     Table,
     TableBody,
@@ -7,8 +8,16 @@ import {
     TableHead,
     TableCaption,
 } from '@/components/ui/table';
+import { getGLobalScores } from '@/services/get-scores';
 
 export default function GlobalRanksTable() {
+    const { data } = useQuery({
+        queryKey: ['scores'],
+        queryFn: getGLobalScores,
+    });
+
+    console.log(data);
+    
     return (
         <Table>
             <TableCaption>
@@ -22,11 +31,16 @@ export default function GlobalRanksTable() {
                 </TableRow>
             </TableHeader>
             <TableBody>
-                <TableRow>
-                    <TableCell>1</TableCell>
-                    <TableCell>John</TableCell>
-                    <TableCell>100</TableCell>
-                </TableRow>
+                {
+                    data?.map(({ username , totalScore }, idx) => (
+                        <TableRow key={idx}>
+                            <TableCell>{idx + 1}</TableCell>
+                            <TableCell>{username}</TableCell>
+                            <TableCell>{totalScore}</TableCell>
+                        </TableRow>
+                    ))
+                }
+                
             </TableBody>
         </Table>
     );

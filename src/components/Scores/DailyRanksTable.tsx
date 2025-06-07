@@ -1,4 +1,4 @@
-//import { useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import {
     Table,
     TableBody,
@@ -8,12 +8,19 @@ import {
     TableHead,
     TableCaption,
 } from '@/components/ui/table';
+import { getDailyScores } from '@/services/get-scores';
 
 export default function DailyRanksTable() {
+    const { data } = useQuery({
+        queryKey: ['daily-scores'],
+        queryFn: getDailyScores,
+        retry: false,
+    });
+
     return (
         <Table>
             <TableCaption>
-                Ce tableau est mis à jour toutes les heures
+                {data ? `Classement du jour` : 'Pas de score aujourd\'hui'}
             </TableCaption>
             <TableHeader>
                 <TableRow>
@@ -23,11 +30,15 @@ export default function DailyRanksTable() {
                 </TableRow>
             </TableHeader>
             <TableBody>
-                <TableRow>
-                    <TableCell>1</TableCell>
-                    <TableCell>John</TableCell>
-                    <TableCell>100</TableCell>
-                </TableRow>
+                {
+                    data?.map(({ username , totalScore }, idx) => (
+                        <TableRow key={idx}>
+                            <TableCell>{idx + 1}</TableCell>
+                            <TableCell>{username}</TableCell>
+                            <TableCell>{totalScore}</TableCell>
+                        </TableRow>
+                    ))
+                }
             </TableBody>
         </Table>
     );

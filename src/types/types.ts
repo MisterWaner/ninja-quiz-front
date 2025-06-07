@@ -6,7 +6,7 @@ export type Subject = {
 };
 
 export type Theme = {
-    id: number;
+    id: string;
     name: string;
     type: string;
     subjectId: number;
@@ -57,3 +57,25 @@ export type User = {
     password?: string;
     confirmPassword?: string;
 };
+
+export type Score = {
+    id: number;
+    userId: User['id'];
+    subjectId: Subject['id'];
+    themeId: Theme['id'];
+    value: number;
+    date: Date;
+}
+
+export type UserGlobalScore = {
+    userId: User['id'];
+    username: User['username'];
+    totalScore: number;
+}
+
+export type UserDailyScore = {
+    userId: User['id'];
+    username: User['username'];
+    totalScore: number;
+    date: Score['date'];
+}
