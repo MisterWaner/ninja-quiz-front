@@ -4,8 +4,6 @@ import ScoreBySubject from '@/components/UserAccount/ScoreBySubject';
 import RanksTableCard from '@/components/Scores/RanksTableCard';
 import ScoreByTheme from '@/components/UserAccount/ScoreByTheme';
 import useCurrentUser from '@/hooks/use-current-user';
-import { Link } from 'react-router';
-import { Button } from '@/components/ui/button';
 
 export default function AccountHome() {
     const { data: user } = useCurrentUser();
@@ -39,13 +37,6 @@ export default function AccountHome() {
                     />
                 </ContentSection>
             </div>
-            <ContentSection>
-                <Button asChild className='w-full md:w-96'>
-                    <Link to='/jouer'>
-                        Jouer
-                    </Link>
-                </Button>
-            </ContentSection>
         </>
     );
 }

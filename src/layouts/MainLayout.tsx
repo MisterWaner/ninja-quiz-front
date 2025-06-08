@@ -1,13 +1,19 @@
 import { Outlet } from 'react-router';
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
-import SideBar from '@/components/SideBar/PublicSideBar';
+import AccountSideBar from '@/components/SideBar/AccountSideBar';
+import PublicSideBar from '@/components/SideBar/PublicSideBar';
 import Header from '@/components/global/Header';
 import Wrapper from '@/components/global/Wrapper';
+import useCurrentUser from '@/hooks/use-current-user';
 
 export default function MainLayout() {
+    const { data: currentUser, isLoading } = useCurrentUser();
+
+    if (isLoading) return <div>Chargement...</div>;
+
     return (
         <SidebarProvider>
-            <SideBar />
+            {currentUser ? <AccountSideBar /> : <PublicSideBar />}
             <Header />
             <main className='relative top-28 w-full h-[calc(100dvh-112px)]'>
                 <SidebarTrigger

@@ -1,11 +1,4 @@
-import {
-    User,
-    Settings,
-    ChartArea,
-    Boxes,
-    Home,
-    LogIn,
-} from 'lucide-react';
+import { User, Settings, ChartArea, Boxes, Home, LogIn } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
 const menuLinks: {
@@ -54,6 +47,18 @@ const userMenuLinks: {
     },
     {
         id: 2,
+        label: 'Jouer',
+        path: '/jouer',
+        icon: Boxes,
+    },
+    {
+        id: 3,
+        label: 'Classements',
+        path: '/classements',
+        icon: ChartArea,
+    },
+    {
+        id: 4,
         label: 'Paramètres',
         path: '/mon-compte/parametres',
         icon: Settings,
