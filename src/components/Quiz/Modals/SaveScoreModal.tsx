@@ -10,8 +10,11 @@ import {
     AlertDialogFooter,
     AlertDialogAction,
 } from '@/components/ui/alert-dialog';
+import { postScore } from '@/services/post-scores';
+import useCurrentUser from '@/hooks/use-current-user';
 
 import { useQuizStore } from '@/store/quiz-store';
+import type { Score } from '@/types/types';
 
 export default function SaveScoreModal() {
     const {
@@ -22,8 +25,12 @@ export default function SaveScoreModal() {
         incrementSessionScore,
     } = useQuizStore();
     const score = useQuizStore((state) => state.score);
+    const themeId = useQuizStore((state) => state.themeId);
+    const subjectId = useQuizStore((state) => state.subjectId);
 
     const navigate = useNavigate();
+
+    const { data: currentUser } = useCurrentUser();
 
     function handleSaveScoreInLocalStorage() {
         let savedScore = localStorage.getItem('score');
@@ -33,14 +40,25 @@ export default function SaveScoreModal() {
             localStorage.setItem('score', savedScore);
             return savedScore;
         } else {
-            return localStorage.setItem('score', score.toString());
+            return localStorage.setItem('score bvb', score.toString());
         }
     }
 
+    const scoreToSave: Omit<Score, 'id'> = {
+        userId: currentUser?.id,
+        value: score,
+        themeId,
+        subjectId,
+        date: new Date(),
+    }
+
+    console.log(scoreToSave)
+    
     function handleSaveScore() {
         console.log(score);
         incrementSessionScore();
         handleSaveScoreInLocalStorage();
+        postScore(scoreToSave);
         resetScore();
         resetTimer();
         resetProgress();
@@ -51,6 +69,7 @@ export default function SaveScoreModal() {
     function handleRestartQuiz() {
         incrementSessionScore();
         handleSaveScoreInLocalStorage();
+        postScore(scoreToSave);
         resetScore();
         resetTimer();
         resetProgress();

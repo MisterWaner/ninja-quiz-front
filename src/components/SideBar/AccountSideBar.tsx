@@ -38,20 +38,19 @@ export default function AccountSideBar() {
             <SidebarContent className='bg-slate-950 text-white w-full'>
                 <SidebarGroup>
                     <SidebarGroupContent>
-                        <SidebarMenu>
+                        <SidebarMenu
+                            onClick={() => {
+                                handleSideBarClick();
+                                handleReset();
+                            }}
+                        >
                             {userMenuLinks.map((item) => (
                                 <SidebarMenuItem
                                     className='px-4 py-2'
                                     key={item.id}
                                 >
                                     <SidebarMenuButton asChild>
-                                        <Link
-                                            to={item.path}
-                                            onClick={() => {
-                                                handleSideBarClick();
-                                                handleReset();
-                                            }}
-                                        >
+                                        <Link to={item.path}>
                                             <item.icon />
                                             <span>{item.label}</span>
                                         </Link>

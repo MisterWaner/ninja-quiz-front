@@ -1,3 +1,4 @@
+import { useQuery } from '@tanstack/react-query';
 import {
     Table,
     TableBody,
@@ -5,35 +6,46 @@ import {
     TableRow,
     TableCell,
     TableHead,
+    TableFooter,
 } from '@/components/ui/table';
+import { getUserGlobalScoreByTheme } from '@/services/get-scores';
+import useCurrentUser from '@/hooks/use-current-user';
 
 export default function ScoreByTheme() {
+    const { data: currentUser } = useCurrentUser();
+    const userId = currentUser?.id;
+    const { data: scores } = useQuery({
+        queryKey: ['themes-scores', userId],
+        queryFn: ({ queryKey }) =>
+            getUserGlobalScoreByTheme({ userId: queryKey[1] }),
+        retry: false,
+    });
+
+    const total = scores?.reduce((acc, curr) => acc + curr.totalScore, 0);
+
+    console.log(scores);
     return (
         <Table>
-            <TableHeader className='bg-slate-400/50'>  
+            <TableHeader className='bg-slate-950'>
                 <TableRow>
-                    <TableHead>Sujet</TableHead>
-                    <TableHead>Thème</TableHead>
-                    <TableHead>Score</TableHead>
+                    <TableHead className='text-slate-50'>Thème</TableHead>
+                    <TableHead className='text-slate-50'>Score</TableHead>
                 </TableRow>
             </TableHeader>
             <TableBody>
-                <TableRow>
-                    <TableCell>Mathématiques</TableCell>
-                    <TableCell>Addition</TableCell>
-                    <TableCell>100</TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell>Science</TableCell>
-                    <TableCell>Physique</TableCell>
-                    <TableCell>80</TableCell>
-                </TableRow>
-                <TableRow className='font-bold'>
-                    <TableCell colSpan={2}>Total</TableCell>
-                    
-                    <TableCell>180</TableCell>
-                </TableRow>
+                {scores?.map(({ themeName, totalScore }, idx) => (
+                    <TableRow key={idx}>
+                        <TableCell>{themeName}</TableCell>
+                        <TableCell>{totalScore}</TableCell>
+                    </TableRow>
+                ))}
             </TableBody>
+            <TableFooter className='font-bold'>
+                <TableRow>
+                    <TableCell>Total</TableCell>
+                    <TableCell>{total}</TableCell>
+                </TableRow>
+            </TableFooter>
         </Table>
     );
 }

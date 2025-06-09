@@ -49,6 +49,7 @@ export interface Quiz {
         | TrueOrFalseQuestion
     )[];
     themeId: Theme['id'];
+    subjectId: Subject['id'];
 }
 
 export type User = {
@@ -78,4 +79,18 @@ export type UserDailyScore = {
     username: User['username'];
     totalScore: number;
     date: Score['date'];
+}
+
+export type UserGlobalScoreByTheme = {
+    userId: User['id'];
+    username: User['username'];
+    themeName: Theme['name'];
+    totalScore: number;
+}
+
+export type UserGlobalScoreBySubject = {
+    userId: User['id'];
+    username: User['username'];
+    subjectName: Subject['name'];
+    totalScore: number;
 }

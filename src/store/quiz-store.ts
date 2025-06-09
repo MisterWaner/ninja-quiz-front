@@ -1,12 +1,14 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import type { Subject, Quiz, QuestionType } from '@/types/types';
+import type { Subject, Quiz, QuestionType, Theme } from '@/types/types';
 import { type PathProps, getQuiz } from '@/services/get-quiz';
 import { getSubjectWithThemes } from '@/services/get-subject-with-themes';
 
 export type QuizState = {
     theme: string;
+    themeId: Theme['id'];
     subject: string;
+    subjectId: Subject['id'];
     isSelected: boolean;
     questionType: QuestionType;
     quiz: Quiz;
@@ -50,7 +52,9 @@ export const useQuizStore = create<QuizState & QuizAction>()(
     persist(
         (set, get) => ({
             theme: '',
+            themeId: '',
             subject: '',
+            subjectId: 0,
             isSelected: false,
             questionType: '' as QuestionType,
             type: '',
@@ -101,12 +105,14 @@ export const useQuizStore = create<QuizState & QuizAction>()(
                 subjectPath,
                 themePath,
             }: PathProps): Promise<Quiz | object> {
-                let { questionType, quiz, questions } = get();
+                let { questionType, quiz, questions, themeId, subjectId } = get();
                 quiz = (await getQuiz({ subjectPath, themePath })) as Quiz;
                 questionType = quiz.questionType;
                 questions = quiz.questions;
-                set({ questionType, quiz, questions });
-                return { quiz, questionType };
+                themeId = quiz.themeId;
+                subjectId = quiz.subjectId;
+                set({ questionType, quiz, questions, themeId, subjectId });
+                return { quiz, questionType, themeId, subjectId };
             },
 
             resetQuiz() {
@@ -115,6 +121,8 @@ export const useQuizStore = create<QuizState & QuizAction>()(
                     questionType: '' as QuestionType,
                     questions: [],
                     currentQuestionIndex: 0,
+                    themeId: '',
+                    subjectId: 0,
                 });
             },
             handleNextQuestion() {
