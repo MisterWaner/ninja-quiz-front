@@ -21,7 +21,7 @@ export default function GlobalRanksTable() {
     return (
         <Table>
             <TableCaption>
-                Ce tableau est remis à 0 tous les mois
+                {data ? `` : 'Pas de score aujourd\'hui'}
             </TableCaption>
             <TableHeader>
                 <TableRow>

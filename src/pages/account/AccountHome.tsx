@@ -25,14 +25,14 @@ export default function AccountHome() {
                 <ContentSection>
                     <RanksTableCard
                         title="Résultats par sujet"
-                        description="Tes scores par sujet"
+                        description="Tes résultats par sujet"
                         content={<ScoreBySubject />}
                     />
                 </ContentSection>
                 <ContentSection>
                     <RanksTableCard
                         title="Résultats par thème"
-                        description="Tes scores par thème"
+                        description="Tes résultats par thème"
                         content={<ScoreByTheme />}
                     />
                 </ContentSection>

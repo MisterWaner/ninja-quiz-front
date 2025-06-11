@@ -20,7 +20,7 @@ export default function DailyRanksTable() {
     return (
         <Table>
             <TableCaption>
-                {data ? `Classement du jour` : 'Pas de score aujourd\'hui'}
+                {data ? `` : 'Pas de score aujourd\'hui'}
             </TableCaption>
             <TableHeader>
                 <TableRow>

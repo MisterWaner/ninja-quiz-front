@@ -24,6 +24,7 @@ export async function getQuiz({
 
         if (response.ok) {
             const data = (await response.json()) as Quiz;
+            console.log(data);
             return data;
         } else {
             console.error('Failed to fetch quiz:', response.status);

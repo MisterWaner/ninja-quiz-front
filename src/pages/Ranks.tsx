@@ -12,14 +12,14 @@ export default function Ranks() {
             <ContentSection>
                 <RanksTableCard
                     title="Classement du jour"
-                    description="Classement des meilleurs scores du jour"
+                    description="Classement des meilleurs joueurs du jour"
                     content={<DailyRanksTable />}
                 />
             </ContentSection>
             <ContentSection>
                 <RanksTableCard
                     title="Classement global"
-                    description="Classement des meilleurs scores mensuels"
+                    description="Classement des meilleurs joueurs mensuels"
                     content={<GlobalRanksTable />}
                 />
             </ContentSection>

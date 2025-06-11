@@ -14,6 +14,7 @@ export async function postScore(score: Omit<Score, 'id'>): Promise<Score> {
 
         if (response.ok) {
             const data = (await response.json()) as Score;
+            console.log(data)
             return data;
         } else {
             throw new Error(
