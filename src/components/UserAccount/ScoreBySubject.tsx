@@ -18,10 +18,11 @@ export default function ScoreBySubject() {
         queryKey: ['subjects-scores', userId],
         queryFn: ({ queryKey }) =>
             getUserGlobalScoreBySubject({ userId: queryKey[1] }),
+        enabled: !!userId,
         retry: false,
     });
 
-    const total = scores?.reduce((acc, curr) => acc + curr.totalScore, 0);
+    const total = scores?.reduce((acc, curr) => acc + Number(curr.totalScore), 0);
     
     return (
         <Table>

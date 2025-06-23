@@ -19,6 +19,7 @@ export async function getGLobalScores(): Promise<UserGlobalScore[]> {
 
         if (response.ok) {
             const data = (await response.json()) as UserGlobalScore[];
+            console.log(data);
             return data;
         } else {
             throw new Error(

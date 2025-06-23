@@ -66,31 +66,31 @@ export type Score = {
     themeId: Theme['id'];
     value: number;
     date: Date;
-}
+};
 
 export type UserGlobalScore = {
     userId: User['id'];
     username: User['username'];
     totalScore: number;
-}
+};
 
 export type UserDailyScore = {
     userId: User['id'];
     username: User['username'];
     totalScore: number;
     date: Score['date'];
-}
+};
 
 export type UserGlobalScoreByTheme = {
     userId: User['id'];
     username: User['username'];
     themeName: Theme['name'];
     totalScore: number;
-}
+};
 
 export type UserGlobalScoreBySubject = {
     userId: User['id'];
     username: User['username'];
     subjectName: Subject['name'];
     totalScore: number;
-}
+};

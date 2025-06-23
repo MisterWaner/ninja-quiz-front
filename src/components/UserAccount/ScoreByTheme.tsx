@@ -18,12 +18,12 @@ export default function ScoreByTheme() {
         queryKey: ['themes-scores', userId],
         queryFn: ({ queryKey }) =>
             getUserGlobalScoreByTheme({ userId: queryKey[1] }),
+        enabled: !!userId,
         retry: false,
     });
 
-    const total = scores?.reduce((acc, curr) => acc + curr.totalScore, 0);
-
-    console.log(scores);
+    const total = scores?.reduce((acc, curr) => acc + Number(curr.totalScore), 0);
+    
     return (
         <Table>
             <TableHeader className='bg-slate-950'>

@@ -16,12 +16,10 @@ export default function GlobalRanksTable() {
         queryFn: getGLobalScores,
     });
 
-    console.log(data);
-    
     return (
         <Table>
             <TableCaption>
-                {data ? `` : 'Pas de score aujourd\'hui'}
+                {data ? `` : "Pas de score aujourd'hui"}
             </TableCaption>
             <TableHeader>
                 <TableRow>
@@ -31,16 +29,13 @@ export default function GlobalRanksTable() {
                 </TableRow>
             </TableHeader>
             <TableBody>
-                {
-                    data?.map(({ username , totalScore }, idx) => (
-                        <TableRow key={idx}>
-                            <TableCell>{idx + 1}</TableCell>
-                            <TableCell>{username}</TableCell>
-                            <TableCell>{totalScore}</TableCell>
-                        </TableRow>
-                    ))
-                }
-                
+                {data?.map(({ username, totalScore }, idx) => (
+                    <TableRow key={idx}>
+                        <TableCell>{idx + 1}</TableCell>
+                        <TableCell>{username}</TableCell>
+                        <TableCell>{totalScore}</TableCell>
+                    </TableRow>
+                ))}
             </TableBody>
         </Table>
     );
