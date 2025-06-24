@@ -16,7 +16,7 @@ import useCurrentUser from '@/hooks/use-current-user';
 import { useQuizStore } from '@/store/quiz-store';
 import type { Score } from '@/types/types';
 
-export default function SaveScoreModal() {
+export default function ConnectedUserSaveScoreModal() {
     const {
         resetScore,
         resetTimer,
@@ -40,7 +40,7 @@ export default function SaveScoreModal() {
             localStorage.setItem('score', savedScore);
             return savedScore;
         } else {
-            return localStorage.setItem('score bvb', score.toString());
+            return localStorage.setItem('score', score.toString());
         }
     }
 
@@ -51,11 +51,8 @@ export default function SaveScoreModal() {
         subjectId,
         date: new Date(),
     }
-
-    console.log(scoreToSave)
     
     function handleSaveScore() {
-        console.log(score);
         incrementSessionScore();
         handleSaveScoreInLocalStorage();
         postScore(scoreToSave);

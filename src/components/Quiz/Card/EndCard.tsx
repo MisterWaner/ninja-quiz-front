@@ -7,9 +7,12 @@ import {
 } from '@/components/ui/card';
 
 import { useQuizStore } from '@/store/quiz-store';
-import SaveScoreModal from '../Modals/SaveScoreModal';
+import useCurrentUser from '@/hooks/use-current-user';
+import ConnectedUserSaveScoreModal from '../Modals/ConnectedUserSaveScoreModal';
+import DiscoverUserSaveScoreModal from '../Modals/DiscoverUserSaveScoreModal';
 
 export default function EndCard() {
+    const { data: currentUser } = useCurrentUser();
     const score = useQuizStore((state) => state.score);
 
     return (
@@ -26,7 +29,11 @@ export default function EndCard() {
                 </p>
             </CardContent>
             <CardFooter className='justify-end'>
-                <SaveScoreModal />
+                {currentUser ? (
+                    <ConnectedUserSaveScoreModal />
+                ) : (
+                    <DiscoverUserSaveScoreModal />
+                )}
             </CardFooter>
         </Card>
     );

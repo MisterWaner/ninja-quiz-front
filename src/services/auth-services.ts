@@ -42,7 +42,6 @@ export async function login(user: User) {
         if (!response.ok) {
             throw new Error('Erreur lors de la connexion');
         }
-        
     } catch (error) {
         console.error(error, 'Une erreur est survenue lors de la connexion');
         throw error;
@@ -76,7 +75,7 @@ export async function logout() {
     }
 }
 
-export async function getCurrentUser(): Promise<User> {
+export async function getCurrentUser(): Promise<User | null> {
     try {
         const response = await fetch(`${BASE_URL}/me`, {
             method: 'GET',
@@ -86,8 +85,12 @@ export async function getCurrentUser(): Promise<User> {
             credentials: 'include',
         });
 
+        if (response.status === 401 || response.status === 403) {
+            return null;
+        }
+
         if (!response.ok) {
-            throw new Error('Utilisateur non authentifié');
+            throw new Error("Erreur lors de la récupération de l'utilisateur");
         }
 
         const user = (await response.json()) as User;

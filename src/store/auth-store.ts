@@ -24,6 +24,7 @@ export type AuthState = {
     showLoginModal: boolean;
     showRegisterModal: boolean;
     currentUser: User | null;
+    isAuthenticated: boolean;
     loading: boolean;
 };
 
@@ -35,7 +36,8 @@ type AuthAction = {
     setShowRegisterModal: (showRegisterModal: boolean) => void;
     resetLoginModal: () => void;
     resetRegisterModal: () => void;
-    fetchCurrentUser: () => Promise<User>;
+    fetchCurrentUser: () => Promise<User | null>;
+    setIsAuthenticated: (value: boolean) => void;
 };
 
 export const useAuthStore = create<AuthState & AuthAction>()(
@@ -56,6 +58,7 @@ export const useAuthStore = create<AuthState & AuthAction>()(
             showLoginModal: false,
             showRegisterModal: false,
             currentUser: null,
+            isAuthenticated: false,
             loading: false,
 
             loginUser: async (user: User) => {
@@ -69,6 +72,7 @@ export const useAuthStore = create<AuthState & AuthAction>()(
                             buttonStyle: 'bg-green-500 hover:bg-green-500/90',
                         },
                         showLoginModal: true,
+                        isAuthenticated: true,
                     });
                 } catch (error) {
                     const message =
@@ -117,15 +121,19 @@ export const useAuthStore = create<AuthState & AuthAction>()(
                     console.error("Erreur d'inscription:", error);
                 }
             },
-            fetchCurrentUser: async (): Promise<User> => {
+            fetchCurrentUser: async (): Promise<User | null> => {
                 set({ loading: true });
                 try {
                     const user = await getUser();
-                    set({ currentUser: user });
-                    return user;
+                    if (!user) {
+                        set({ currentUser: null, isAuthenticated: false });
+                        return null;
+                    }
+                    set({ currentUser: user, isAuthenticated: true });
+                    return user as User;
                 } catch (error) {
                     console.error(error);
-                    set({ currentUser: null });
+                    set({ currentUser: null, isAuthenticated: false });
                     throw error;
                 } finally {
                     set({ loading: false });
@@ -137,6 +145,7 @@ export const useAuthStore = create<AuthState & AuthAction>()(
                     await logoutUser();
                     localStorage.removeItem('auth-store');
                     localStorage.removeItem('score');
+                    set({ currentUser: null, isAuthenticated: false });
                     console.log('déconnexion réussie');
                 } catch (error) {
                     console.error(
@@ -170,6 +179,8 @@ export const useAuthStore = create<AuthState & AuthAction>()(
                     showRegisterModal: false,
                 });
             },
+            setIsAuthenticated: (value: boolean) =>
+                set({ isAuthenticated: value }),
         }),
         {
             name: 'auth-store',

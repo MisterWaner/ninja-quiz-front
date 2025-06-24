@@ -105,7 +105,8 @@ export const useQuizStore = create<QuizState & QuizAction>()(
                 subjectPath,
                 themePath,
             }: PathProps): Promise<Quiz | object> {
-                let { questionType, quiz, questions, themeId, subjectId } = get();
+                let { questionType, quiz, questions, themeId, subjectId } =
+                    get();
                 quiz = (await getQuiz({ subjectPath, themePath })) as Quiz;
                 questionType = quiz.questionType;
                 questions = quiz.questions;

@@ -1,4 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router';
+import { useEffect } from 'react';
+
+import { useAuthStore } from '@/store/auth-store';
 
 import MainLayout from '@/layouts/MainLayout';
 import GameLayout from '@/layouts/GameLayout';
@@ -15,11 +18,18 @@ import AccountSettings from './pages/account/AccountSettings';
 import ProtectedRoutes from '@/utils/ProtectedRoutes';
 
 function App() {
+
+    const { setIsAuthenticated, fetchCurrentUser } = useAuthStore();
+    
+    useEffect(() => {
+        fetchCurrentUser().then(() => setIsAuthenticated(true)).catch(() => setIsAuthenticated(false));
+    }, [fetchCurrentUser, setIsAuthenticated]);
+
     return (
         <>
             <BrowserRouter>
                 <Routes>
-                    <Route element={<MainLayout />}>
+                    <Route loader element={<MainLayout />}>
                         <Route index element={<Home />} />
                         <Route path='inscription' element={<Signin />} />
                         <Route path='connexion' element={<Login />} />
@@ -32,7 +42,7 @@ function App() {
                         </Route>
                     </Route>
 
-                    <Route  element={<ProtectedRoutes />}>
+                    <Route loader element={<ProtectedRoutes />}>
                         <Route element={<AccountLayout />}>
                             <Route path='mon-compte'>
                                 <Route index element={<AccountHome />} />

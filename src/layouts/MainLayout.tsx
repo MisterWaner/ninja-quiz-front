@@ -4,12 +4,13 @@ import AccountSideBar from '@/components/SideBar/AccountSideBar';
 import PublicSideBar from '@/components/SideBar/PublicSideBar';
 import Header from '@/components/global/Header';
 import Wrapper from '@/components/global/Wrapper';
+import Loader from '@/components/global/Loader';
 import useCurrentUser from '@/hooks/use-current-user';
 
 export default function MainLayout() {
     const { data: currentUser, isLoading } = useCurrentUser();
 
-    if (isLoading) return <div>Chargement...</div>;
+    if (isLoading) return <Loader />;
 
     return (
         <SidebarProvider>
