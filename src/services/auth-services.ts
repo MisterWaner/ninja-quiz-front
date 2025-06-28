@@ -12,6 +12,10 @@ export async function register(user: User): Promise<void> {
             body: JSON.stringify(user),
         });
 
+        if (response.status === 409) {
+            throw new Error('Ce pseudo est déjà utilisé');
+        }
+
         if (response.ok) {
             const responseData = await response.json();
             console.log(responseData, 'Utilisateur enregistré');
@@ -38,6 +42,10 @@ export async function login(user: User) {
             credentials: 'include',
             body: JSON.stringify(user),
         });
+
+        if (response.status === 401) {
+            throw new Error('Mauvais pseudo ou mot de passe');
+        }
 
         if (!response.ok) {
             throw new Error('Erreur lors de la connexion');

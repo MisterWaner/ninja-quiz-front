@@ -17,6 +17,7 @@ import { Input } from '@/components/ui/input';
 import LoginModal from './LoginModal';
 import { loginSchema } from '@/lib/zod-schemas';
 import { useAuthStore } from '@/store/auth-store';
+import { useAuthActions} from '@/store/auth-action.ts'
 
 export default function LoginForm() {
     const form = useForm<z.infer<typeof loginSchema>>({
@@ -25,13 +26,14 @@ export default function LoginForm() {
     const queryClient = useQueryClient();
 
     
-    const { login, setShowLoginModal, showLoginModal, loginUser } =
+    const { loginFeedback, showLoginModal } =
     useAuthStore();
+    const { loginUser, setShowLoginModal} = useAuthActions();
     
     const loginMutation = useMutation({
         mutationFn: loginUser,
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['currentUser'] });
+            void queryClient.invalidateQueries({ queryKey: ['currentUser'] });
         }
     })
 
@@ -99,12 +101,12 @@ export default function LoginForm() {
                     <Button
                         type='submit'
                         disabled={!form.formState.isValid}
-                        className='w-full xl:w-1/2 hover:cursor-pointer'
+                        className='w-full hover:cursor-pointer'
                     >
                         Se connecter
                     </Button>
                     <LoginModal
-                        login={login}
+                        login={loginFeedback}
                         onClose={resetForm}
                         onOpenChange={(open) => setShowLoginModal(open)}
                         open={showLoginModal}

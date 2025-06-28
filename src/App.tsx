@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router';
 import { useEffect } from 'react';
 
-import { useAuthStore } from '@/store/auth-store';
+import {useAuthActions} from "@/store/auth-action.ts";
 
 import MainLayout from '@/layouts/MainLayout';
 import GameLayout from '@/layouts/GameLayout';
@@ -19,7 +19,7 @@ import ProtectedRoutes from '@/utils/ProtectedRoutes';
 
 function App() {
 
-    const { setIsAuthenticated, fetchCurrentUser } = useAuthStore();
+    const { setIsAuthenticated, fetchCurrentUser } = useAuthActions();
     
     useEffect(() => {
         fetchCurrentUser().then(() => setIsAuthenticated(true)).catch(() => setIsAuthenticated(false));

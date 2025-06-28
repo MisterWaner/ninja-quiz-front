@@ -1,8 +1,9 @@
-import { useQuery } from '@tanstack/react-query';
-import { useAuthStore } from '@/store/auth-store';
+import {useQuery} from '@tanstack/react-query';
+import {useAuthStore} from '@/store/auth-store';
+import {useAuthActions} from "@/store/auth-action.ts";
 
 export default function useCurrentUser() {
-    const { fetchCurrentUser } = useAuthStore();
+    const {fetchCurrentUser} = useAuthActions();
     const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
     return useQuery({

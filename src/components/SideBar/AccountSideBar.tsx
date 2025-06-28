@@ -13,12 +13,12 @@ import {
 import { userMenuLinks } from '@/lib/menu-links';
 
 import { useQuizStore } from '@/store/quiz-store';
-import { useAuthStore } from '@/store/auth-store';
+import {useAuthActions} from "@/store/auth-action.ts";
 
 export default function AccountSideBar() {
     const { resetQuiz, resetProgress, resetScore, resetTimer } = useQuizStore();
     const { toggleSidebar, isMobile } = useSidebar();
-    const { logoutUser } = useAuthStore();
+    const { logoutUser } = useAuthActions();
 
     function handleSideBarClick() {
         if (isMobile) {

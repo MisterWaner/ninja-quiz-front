@@ -16,16 +16,18 @@ import { Input } from '@/components/ui/input';
 import SigninModal from './SigninModal';
 import { registerSchema } from '@/lib/zod-schemas';
 import { useAuthStore } from '@/store/auth-store';
+import {useAuthActions} from '@/store/auth-action.ts'
 
 export default function SigninForm() {
     const form = useForm<z.infer<typeof registerSchema>>({
         resolver: zodResolver(registerSchema),
     });
 
-    const { register, setShowRegisterModal, showRegisterModal, registerUser } =
+    const { registerFeedback, showRegisterModal } =
         useAuthStore();
+    const {setShowRegisterModal, registerUser} = useAuthActions();
 
-    async function handleRegiser(values: z.infer<typeof registerSchema>) {
+    async function handleRegister(values: z.infer<typeof registerSchema>) {
         try {
             await registerUser(values);
             console.log('Formulaire valide');
@@ -47,7 +49,7 @@ export default function SigninForm() {
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(handleRegiser)} className='flex flex-col gap-4'>
+            <form onSubmit={form.handleSubmit(handleRegister)} className='flex flex-col gap-4'>
                 <FormField 
                     control={form.control}
                     name='username'
@@ -109,12 +111,12 @@ export default function SigninForm() {
                     <Button
                         type='submit'
                         disabled={!form.formState.isValid}
-                        className='w-full xl:w-1/2 hover:cursor-pointer'
+                        className='w-full hover:cursor-pointer'
                     >
                         S'inscrire
                     </Button>
                     <SigninModal
-                        register={register}
+                        register={registerFeedback}
                         onClose={resetForm}
                         onOpenChange={(open) => setShowRegisterModal(open)}
                         open={showRegisterModal}
