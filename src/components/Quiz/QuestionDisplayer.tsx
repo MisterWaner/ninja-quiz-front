@@ -11,7 +11,7 @@ export default function QuestionDisplayer() {
         case 'direct':
             return <DirectQuestionCard />;
         case 'multiple':
-            return <MultipleChoiceQuestionCard />;
+            return <MultipleChoiceQuestionCard displayImage={true}/>;
         case 'trueOrFalse':
             return <TrueOrFalseQuestionCard />;
         default:
