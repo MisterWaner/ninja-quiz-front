@@ -30,3 +30,25 @@ export async function updateUserPassword(userId: User['id'], password: User['pas
         throw error;
     }
 }
+
+export async function deleteUser(userId: User['id']): Promise<void> {
+    try {
+        const response = await fetch(`${BASE_URL}/${userId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            credentials: 'include',
+        })
+
+        if (!response.ok) throw new Error('Erreur lors de la suppression de l\'utilisateur')
+
+        console.log('Utilisateur supprimé avec succès')
+    } catch (error) {
+        console.error(
+            error,
+            'Une erreur est survenue lors de la suppression de l\'utilisateur'
+        );
+        throw error;
+    }
+}

@@ -18,7 +18,7 @@ export default function UpdatePasswordModal() {
             if (!open) setStatus('idle');
         }}>
             <DialogTrigger asChild>
-                <Button className='hover:cursor-pointer'>
+                <Button className='hover:cursor-pointer w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6'>
                     Modifier le mot de passe
                 </Button>
             </DialogTrigger>
