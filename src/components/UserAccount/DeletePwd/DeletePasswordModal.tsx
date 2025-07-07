@@ -7,7 +7,7 @@ import {
     DialogTrigger,
     DialogTitle,
     DialogContent,
-    DialogDescription,
+
 } from "@/components/ui/dialog.tsx";
 import {Button} from "@/components/ui/button.tsx";
 import {deleteUser} from "@/services/user-services.ts";
@@ -19,8 +19,19 @@ export default function DeletePasswordModal() {
     const navigate = useNavigate();
 
     async function handleDelete() {
-        await deleteUser(user?.id)
-        setTimeout(() => navigate('/'), 2000)
+        if (!user?.id) {
+            console.error('Aucun ID utilisateur trouvé');
+            setStatus('error')
+        }
+        try {
+            await deleteUser(user?.id);
+            setStatus('success');
+            setTimeout(() => navigate('/'), 2000);
+        } catch (error) {
+            console.error(error)
+            setStatus('error')
+        }
+
     }
 
     return (

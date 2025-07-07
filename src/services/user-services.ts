@@ -33,11 +33,9 @@ export async function updateUserPassword(userId: User['id'], password: User['pas
 
 export async function deleteUser(userId: User['id']): Promise<void> {
     try {
+        console.log(`Suppression de l'utilisateur: ${userId}`);
         const response = await fetch(`${BASE_URL}/${userId}`, {
             method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-            },
             credentials: 'include',
         })
 
