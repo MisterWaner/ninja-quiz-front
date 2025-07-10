@@ -3,6 +3,8 @@ import ninjaQuiz from '/ninjaquiz.png';
 import ScoreBySubject from '@/components/UserAccount/ScoreBySubject';
 import RanksTableCard from '@/components/Scores/RanksTableCard';
 import ScoreByTheme from '@/components/UserAccount/ScoreByTheme';
+import ScoreBySubjectChart from "@/components/UserAccount/Charts/ScoreBySubjectChart.tsx";
+import ScoreByThemeChart from '@/components/UserAccount/Charts/ScoreByThemeChart.tsx';
 import useCurrentUser from '@/hooks/use-current-user';
 
 export default function AccountHome() {
@@ -35,6 +37,14 @@ export default function AccountHome() {
                         description="Tes résultats par thème"
                         content={<ScoreByTheme />}
                     />
+                </ContentSection>
+            </div>
+            <div className="flex flex-col md:flex-row md:gap-4">
+                <ContentSection>
+                    <ScoreBySubjectChart />
+                </ContentSection>
+                <ContentSection>
+                    <ScoreByThemeChart />
                 </ContentSection>
             </div>
         </>
