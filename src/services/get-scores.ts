@@ -1,5 +1,7 @@
 import type {
     User,
+    UserAverageScoreSortedBySubject,
+    UserAverageScoreSortedByTheme,
     UserDailyScore,
     UserGlobalScore,
     UserGlobalScoreBySubject,
@@ -98,6 +100,52 @@ export async function getUserGlobalScoreBySubject({
 
         if (response.ok) {
             const data = (await response.json()) as UserGlobalScoreBySubject[];
+            return data;
+        } else {
+            throw new Error(
+                'Une erreur est survenue lors de la récupération des scores'
+            );
+        }
+    } catch (error) {
+        console.error('Une erreur est survenue', error);
+        throw error;
+    }
+}
+
+export async function getUserAverageScoreSortedByTheme({userId}: {userId: User['id']}): Promise<UserAverageScoreSortedByTheme[]> {
+    try {
+        const response = await fetch(`${BASE_URL}/${userId}/average/by-theme`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (response.ok) {
+            const data = (await response.json()) as UserAverageScoreSortedByTheme[];
+            return data;
+        } else {
+            throw new Error(
+                'Une erreur est survenue lors de la récupération des scores'
+            );
+        }
+    } catch (error) {
+        console.error('Une erreur est survenue', error);
+        throw error;
+    }
+}
+
+export async function getUserAverageScoreSortedBySubject({userId}: {userId: User['id']}): Promise<UserAverageScoreSortedBySubject[]> {
+    try {
+        const response = await fetch(`${BASE_URL}/${userId}/average/by-subject`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (response.ok) {
+            const data = (await response.json()) as UserAverageScoreSortedBySubject[];
             return data;
         } else {
             throw new Error(

@@ -1,8 +1,11 @@
-import type {User} from '@/types/types';
+import type { User } from '@/types/types';
 
 const BASE_URL = 'http://localhost:3001/users';
 
-export async function updateUserPassword(userId: User['id'], password: User['password']): Promise<void> {
+export async function updateUserPassword(
+    userId: User['id'],
+    password: User['password']
+): Promise<void> {
     try {
         console.log(`Requete envoyée vers ${BASE_URL}/${userId}/pwd`);
         const response = await fetch(`${BASE_URL}/${userId}/pwd`, {
@@ -11,15 +14,17 @@ export async function updateUserPassword(userId: User['id'], password: User['pas
                 'Content-Type': 'application/json',
             },
             credentials: 'include',
-            body: JSON.stringify({password}),
+            body: JSON.stringify({ password }),
         });
-        console.log(response.status)
+        console.log(response.status);
 
-        if (response.status === 401) throw new Error('Mauvais pseudo ou mot de passe');
+        if (response.status === 401)
+            throw new Error('Mauvais pseudo ou mot de passe');
 
         if (response.status === 404) throw new Error('Utilisateur non trouvé');
 
-        if (!response.ok) throw new Error('Erreur lors de la modification du mot de passe');
+        if (!response.ok)
+            throw new Error('Erreur lors de la modification du mot de passe');
 
         console.log('Mot de passe modifié avec succès');
     } catch (error) {
@@ -37,15 +42,16 @@ export async function deleteUser(userId: User['id']): Promise<void> {
         const response = await fetch(`${BASE_URL}/${userId}`, {
             method: 'DELETE',
             credentials: 'include',
-        })
+        });
 
-        if (!response.ok) throw new Error('Erreur lors de la suppression de l\'utilisateur')
+        if (!response.ok)
+            throw new Error("Erreur lors de la suppression de l'utilisateur");
 
-        console.log('Utilisateur supprimé avec succès')
+        console.log('Utilisateur supprimé avec succès');
     } catch (error) {
         console.error(
             error,
-            'Une erreur est survenue lors de la suppression de l\'utilisateur'
+            "Une erreur est survenue lors de la suppression de l'utilisateur"
         );
         throw error;
     }

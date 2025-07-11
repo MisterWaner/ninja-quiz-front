@@ -14,7 +14,7 @@ export default function SigninCard() {
             <CardHeader className='w-full text-center'>
                 <CardTitle>Inscris-toi</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className='w-full'>
                 <SigninForm />
             </CardContent>
             <CardFooter>

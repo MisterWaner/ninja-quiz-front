@@ -94,3 +94,19 @@ export type UserGlobalScoreBySubject = {
     subjectName: Subject['name'];
     totalScore: number;
 };
+
+export type UserAverageScoreSortedByTheme = {
+    userId: User['id'];
+    username: User['username'];
+    themeName: Theme['name'];
+    averageScore: number;
+    totalScore: number;
+}
+
+export type UserAverageScoreSortedBySubject = {
+    userId: User['id'];
+    username: User['username'];
+    subjectName: Subject['name'];
+    averageScore: number;
+    totalScore: number;
+}

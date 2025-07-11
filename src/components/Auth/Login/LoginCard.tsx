@@ -14,7 +14,7 @@ export default function LoginCard() {
             <CardHeader className='w-full text-center'>
                 <CardTitle>Connecte-toi</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className='w-full'>
                 <LoginForm />
             </CardContent>
             <CardFooter>
