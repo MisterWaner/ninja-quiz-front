@@ -1,6 +1,6 @@
 import type { User } from '@/types/types';
 
-const BASE_URL = 'ninja-quiz-back-production.up.railway.app';
+const BASE_URL = 'https://ninja-quiz-back-production.up.railway.app';
 
 export async function register(user: User): Promise<void> {
     try {
@@ -58,7 +58,7 @@ export async function login(user: User) {
 
 export async function logout() {
     try {
-        const response = await fetch(`${BASE_URL}/logout`, {
+        const response = await fetch(`${BASE_URL}/auth/logout`, {
             method: 'POST',
             credentials: 'include',
         });
@@ -85,7 +85,7 @@ export async function logout() {
 
 export async function getCurrentUser(): Promise<User | null> {
     try {
-        const response = await fetch(`${BASE_URL}/me`, {
+        const response = await fetch(`${BASE_URL}/auth/me`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

@@ -1,6 +1,6 @@
 import type { User } from '@/types/types';
 
-const BASE_URL = 'ninja-quiz-back-production.up.railway.app';
+const BASE_URL = 'https://ninja-quiz-back-production.up.railway.app';
 
 export async function updateUserPassword(
     userId: User['id'],
