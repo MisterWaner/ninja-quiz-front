@@ -1,6 +1,9 @@
 import type { Quiz, Subject, Theme } from '@/types/types';
+import { config } from 'dotenv';
 
-const BASE_URL = 'http://localhost:3001/quiz';
+config();
+const BASE_URL = `${process.env.BASE_URL}/quiz`;
+
 
 export type PathProps = {
     subjectPath: Subject['subjectPath'];

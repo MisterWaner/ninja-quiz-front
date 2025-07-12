@@ -1,6 +1,9 @@
+import { config } from 'dotenv';
 import type { Score } from '@/types/types';
 
-const BASE_URL = 'http://localhost:3001/scores';
+config();
+
+const BASE_URL = `${process.env.BASE_URL}/scores`;
 
 export async function postScore(score: Omit<Score, 'id'>): Promise<Score> {
     try {

@@ -8,12 +8,12 @@ import {
     TableHead,
     TableCaption,
 } from '@/components/ui/table';
-import { getGLobalScores } from '@/services/get-scores';
+import { getGlobalScores } from '@/services/get-scores';
 
 export default function GlobalRanksTable() {
     const { data } = useQuery({
         queryKey: ['scores'],
-        queryFn: getGLobalScores,
+        queryFn: getGlobalScores,
     });
 
     return (

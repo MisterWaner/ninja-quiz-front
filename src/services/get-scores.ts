@@ -1,3 +1,4 @@
+import  { config } from 'dotenv';
 import type {
     User,
     UserAverageScoreSortedBySubject,
@@ -8,9 +9,11 @@ import type {
     UserGlobalScoreByTheme,
 } from '@/types/types';
 
-const BASE_URL = 'http://localhost:3001/scores';
+config();
 
-export async function getGLobalScores(): Promise<UserGlobalScore[]> {
+const BASE_URL = `${process.env.BASE_URL}/scores`;
+
+export async function getGlobalScores(): Promise<UserGlobalScore[]> {
     try {
         const response = await fetch(`${BASE_URL}/global`, {
             method: 'GET',

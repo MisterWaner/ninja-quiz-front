@@ -1,6 +1,6 @@
-import {create} from 'zustand';
-import {persist, createJSONStorage} from 'zustand/middleware';
-import type {User} from '@/types/types.ts';
+import { create } from 'zustand';
+import { persist, createJSONStorage } from 'zustand/middleware';
+import type { User } from '@/types/types.ts';
 
 export type AuthState = {
     loginFeedback: {
@@ -30,38 +30,36 @@ export type AuthState = {
 };
 
 export const useAuthStore = create<AuthState>()(
-        persist(
-            (_set) => ({
-                loginFeedback: {
-                    status: '',
-                    message: '',
-                    style: '',
-                    buttonStyle: '',
-                },
-                registerFeedback: {
-                    status: '',
-                    message: '',
-                    style: '',
-                    buttonStyle: '',
-                },
-                updateFeedback: {
-                    status: '',
-                    message: '',
-                    style: '',
-                    buttonStyle: '',
-                },
-                showUpdatePasswordModal: false,
-                showLoginModal: false,
-                showRegisterModal: false,
-                currentUser: null,
-                isAuthenticated: false,
-                loading: false,
-            }),
-            {
-                name: 'auth-store',
-                storage:
-                    createJSONStorage(() => localStorage)
-            }
-        )
+    persist(
+        (_set) => ({
+            loginFeedback: {
+                status: '',
+                message: '',
+                style: '',
+                buttonStyle: '',
+            },
+            registerFeedback: {
+                status: '',
+                message: '',
+                style: '',
+                buttonStyle: '',
+            },
+            updateFeedback: {
+                status: '',
+                message: '',
+                style: '',
+                buttonStyle: '',
+            },
+            showUpdatePasswordModal: false,
+            showLoginModal: false,
+            showRegisterModal: false,
+            currentUser: null,
+            isAuthenticated: false,
+            loading: false,
+        }),
+        {
+            name: 'auth-store',
+            storage: createJSONStorage(() => localStorage),
+        }
     )
-;
+);

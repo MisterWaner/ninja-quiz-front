@@ -1,6 +1,8 @@
 import type { User } from '@/types/types';
+import { config } from 'dotenv';
 
-const BASE_URL = 'http://localhost:3001/auth';
+config();
+const BASE_URL = `${process.env.BASE_URL}/auth`;
 
 export async function register(user: User): Promise<void> {
     try {

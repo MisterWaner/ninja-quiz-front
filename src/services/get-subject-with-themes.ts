@@ -1,6 +1,9 @@
-const BASE_URL = 'http://localhost:3001';
-
+import { config } from 'dotenv';
 import type { Subject } from '@/types/types';
+
+config();
+const BASE_URL = `${process.env.BASE_URL}`;
+
 
 export async function getSubjectWithThemes(): Promise<Subject[]> {
     try {

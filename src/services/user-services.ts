@@ -1,6 +1,8 @@
+import { config } from 'dotenv';
 import type { User } from '@/types/types';
 
-const BASE_URL = 'http://localhost:3001/users';
+config();
+const BASE_URL = `${process.env.BASE_URL}/users`;
 
 export async function updateUserPassword(
     userId: User['id'],
