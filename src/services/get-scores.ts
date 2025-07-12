@@ -8,7 +8,7 @@ import type {
     UserGlobalScoreByTheme,
 } from '@/types/types';
 
-const BASE_URL = import.meta.env.VITE_API_URL;
+const BASE_URL = 'ninja-quiz-back-production.up.railway.app';
 
 export async function getGlobalScores(): Promise<UserGlobalScore[]> {
     try {

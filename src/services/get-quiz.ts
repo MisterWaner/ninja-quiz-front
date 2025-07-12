@@ -1,6 +1,6 @@
 import type { Quiz, Subject, Theme } from '@/types/types';
 
-const BASE_URL = import.meta.env.VITE_API_URL;
+const BASE_URL = 'ninja-quiz-back-production.up.railway.app';
 
 
 export type PathProps = {
