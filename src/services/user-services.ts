@@ -1,14 +1,14 @@
 import type { User } from '@/types/types';
 
-const BASE_URL = `${import.meta.env.VITE_BASE_URL}/users`;
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 export async function updateUserPassword(
     userId: User['id'],
     password: User['password']
 ): Promise<void> {
     try {
-        console.log(`Requete envoyée vers ${BASE_URL}/${userId}/pwd`);
-        const response = await fetch(`${BASE_URL}/${userId}/pwd`, {
+        console.log(`Requete envoyée vers ${BASE_URL}/users/${userId}/pwd`);
+        const response = await fetch(`${BASE_URL}/users/${userId}/pwd`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -39,7 +39,7 @@ export async function updateUserPassword(
 export async function deleteUser(userId: User['id']): Promise<void> {
     try {
         console.log(`Suppression de l'utilisateur: ${userId}`);
-        const response = await fetch(`${BASE_URL}/${userId}`, {
+        const response = await fetch(`${BASE_URL}/users/${userId}`, {
             method: 'DELETE',
             credentials: 'include',
         });

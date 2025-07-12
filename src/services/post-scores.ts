@@ -1,10 +1,10 @@
 import type { Score } from '@/types/types';
 
-const BASE_URL = `${import.meta.env.VITE_BASE_URL}/scores`;
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 export async function postScore(score: Omit<Score, 'id'>): Promise<Score> {
     try {
-        const response = await fetch(`${BASE_URL}`, {
+        const response = await fetch(`${BASE_URL}/scores`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

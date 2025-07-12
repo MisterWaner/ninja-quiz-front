@@ -8,11 +8,11 @@ import type {
     UserGlobalScoreByTheme,
 } from '@/types/types';
 
-const BASE_URL = `${import.meta.env.VITE_BASE_URL}/scores`;
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 export async function getGlobalScores(): Promise<UserGlobalScore[]> {
     try {
-        const response = await fetch(`${BASE_URL}/global`, {
+        const response = await fetch(`${BASE_URL}/scores/global`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -36,7 +36,7 @@ export async function getGlobalScores(): Promise<UserGlobalScore[]> {
 
 export async function getDailyScores(): Promise<UserDailyScore[]> {
     try {
-        const response = await fetch(`${BASE_URL}/daily`, {
+        const response = await fetch(`${BASE_URL}/scores/daily`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -64,7 +64,7 @@ export async function getUserGlobalScoreByTheme({
     userId: User['id'];
 }): Promise<UserGlobalScoreByTheme[]> {
     try {
-        const response = await fetch(`${BASE_URL}/${userId}/global/by-theme`, {
+        const response = await fetch(`${BASE_URL}/scores/${userId}/global/by-theme`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -91,7 +91,7 @@ export async function getUserGlobalScoreBySubject({
     userId: User['id'];
 }): Promise<UserGlobalScoreBySubject[]> {
     try {
-        const response = await fetch(`${BASE_URL}/${userId}/global/by-subject`, {
+        const response = await fetch(`${BASE_URL}/scores/${userId}/global/by-subject`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -114,7 +114,7 @@ export async function getUserGlobalScoreBySubject({
 
 export async function getUserAverageScoreSortedByTheme({userId}: {userId: User['id']}): Promise<UserAverageScoreSortedByTheme[]> {
     try {
-        const response = await fetch(`${BASE_URL}/${userId}/average/by-theme`, {
+        const response = await fetch(`${BASE_URL}/scores/${userId}/average/by-theme`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -137,7 +137,7 @@ export async function getUserAverageScoreSortedByTheme({userId}: {userId: User['
 
 export async function getUserAverageScoreSortedBySubject({userId}: {userId: User['id']}): Promise<UserAverageScoreSortedBySubject[]> {
     try {
-        const response = await fetch(`${BASE_URL}/${userId}/average/by-subject`, {
+        const response = await fetch(`${BASE_URL}/scores/${userId}/average/by-subject`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

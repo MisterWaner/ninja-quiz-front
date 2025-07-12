@@ -1,6 +1,6 @@
 import type { Quiz, Subject, Theme } from '@/types/types';
 
-const BASE_URL = `${import.meta.env.VITE_BASE_URL}/quiz`;
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 
 export type PathProps = {
@@ -14,7 +14,7 @@ export async function getQuiz({
 }: PathProps): Promise<Quiz | object> {
     try {
         const response = await fetch(
-            `${BASE_URL}/${subjectPath}/${themePath}`,
+            `${BASE_URL}/quiz/${subjectPath}/${themePath}`,
             {
                 method: 'GET',
                 headers: {

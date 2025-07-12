@@ -1,10 +1,10 @@
 import type { User } from '@/types/types';
 
-const BASE_URL = `${import.meta.env.VITE_BASE_URL}/auth`;
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 export async function register(user: User): Promise<void> {
     try {
-        const response = await fetch(`${BASE_URL}/register`, {
+        const response = await fetch(`${BASE_URL}/auth/register`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -34,7 +34,7 @@ export async function register(user: User): Promise<void> {
 
 export async function login(user: User) {
     try {
-        const response = await fetch(`${BASE_URL}/login`, {
+        const response = await fetch(`${BASE_URL}/auth/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
