@@ -1,8 +1,6 @@
-import { config } from 'dotenv';
 import type { User } from '@/types/types';
 
-config();
-const BASE_URL = `${process.env.BASE_URL}/users`;
+const BASE_URL = `${import.meta.env.VITE_BASE_URL}/users`;
 
 export async function updateUserPassword(
     userId: User['id'],

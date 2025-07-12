@@ -1,8 +1,6 @@
 import type { Quiz, Subject, Theme } from '@/types/types';
-import { config } from 'dotenv';
 
-config();
-const BASE_URL = `${process.env.BASE_URL}/quiz`;
+const BASE_URL = `${import.meta.env.VITE_BASE_URL}/quiz`;
 
 
 export type PathProps = {

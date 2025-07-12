@@ -1,4 +1,3 @@
-import  { config } from 'dotenv';
 import type {
     User,
     UserAverageScoreSortedBySubject,
@@ -9,9 +8,7 @@ import type {
     UserGlobalScoreByTheme,
 } from '@/types/types';
 
-config();
-
-const BASE_URL = `${process.env.BASE_URL}/scores`;
+const BASE_URL = `${import.meta.env.VITE_BASE_URL}/scores`;
 
 export async function getGlobalScores(): Promise<UserGlobalScore[]> {
     try {

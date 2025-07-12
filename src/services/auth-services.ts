@@ -1,8 +1,6 @@
 import type { User } from '@/types/types';
-import { config } from 'dotenv';
 
-config();
-const BASE_URL = `${process.env.BASE_URL}/auth`;
+const BASE_URL = `${import.meta.env.VITE_BASE_URL}/auth`;
 
 export async function register(user: User): Promise<void> {
     try {

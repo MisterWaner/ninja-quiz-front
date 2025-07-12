@@ -1,9 +1,6 @@
-import { config } from 'dotenv';
 import type { Subject } from '@/types/types';
 
-config();
-const BASE_URL = `${process.env.BASE_URL}`;
-
+const BASE_URL = `${import.meta.env.VITE_BASE_URL}`;
 
 export async function getSubjectWithThemes(): Promise<Subject[]> {
     try {

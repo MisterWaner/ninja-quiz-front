@@ -1,9 +1,6 @@
-import { config } from 'dotenv';
 import type { Score } from '@/types/types';
 
-config();
-
-const BASE_URL = `${process.env.BASE_URL}/scores`;
+const BASE_URL = `${import.meta.env.VITE_BASE_URL}/scores`;
 
 export async function postScore(score: Omit<Score, 'id'>): Promise<Score> {
     try {
