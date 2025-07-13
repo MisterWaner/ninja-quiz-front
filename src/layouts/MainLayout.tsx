@@ -4,14 +4,10 @@ import AccountSideBar from '@/components/SideBar/AccountSideBar';
 import PublicSideBar from '@/components/SideBar/PublicSideBar';
 import Header from '@/components/global/Header';
 import Wrapper from '@/components/global/Wrapper';
-import Loader from '@/components/global/Loader';
-import useCurrentUser from '@/hooks/use-current-user';
 import { useAuthStore } from '@/store/auth-store.ts';
 
 export default function MainLayout() {
-    const { isLoading } = useCurrentUser();
     const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
-    if (isLoading) return <Loader />;
 
     return (
         <SidebarProvider>
