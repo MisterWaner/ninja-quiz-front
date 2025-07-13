@@ -177,7 +177,10 @@ export const useAuthActions = create<AuthAction>()(() => ({
     logoutUser: async () => {
         try {
             await logoutUser();
-            useAuthStore.setState(initialAuthState);
+            useAuthStore.setState({
+                ...initialAuthState,
+                isAuthInitialized: true,
+            });
             localStorage.removeItem('auth-store');
             localStorage.removeItem('score');
             queryClient.removeQueries({ queryKey: ['currentUser'] });
