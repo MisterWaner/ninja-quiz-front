@@ -32,6 +32,7 @@ export type AuthState = {
 
 export const useAuthStore = create<AuthState>()(
     persist(
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         (_set) => ({
             loginFeedback: {
                 status: '',

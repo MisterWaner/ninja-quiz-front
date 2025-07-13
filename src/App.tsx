@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router';
-
+import { useEffect } from 'react';
+import { useAuthActions } from './store/auth-action';
 import MainLayout from '@/layouts/MainLayout';
 import GameLayout from '@/layouts/GameLayout';
 import AccountLayout from '@/layouts/AccountLayout';
@@ -15,6 +16,13 @@ import AccountSettings from './pages/account/AccountSettings';
 import ProtectedRoutes from '@/utils/ProtectedRoutes';
 
 function App() {
+    const { fetchCurrentUser} = useAuthActions();
+
+    useEffect(() => {
+        fetchCurrentUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+    
     return (
         <>
             <BrowserRouter>
