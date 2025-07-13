@@ -184,7 +184,6 @@ export const useAuthActions = create<AuthAction>()(() => ({
             localStorage.removeItem('score');
             queryClient.removeQueries({ queryKey: ['currentUser'] });
             console.log('déconnexion réussie');
-            window.location.href = '/connexion';
         } catch (error) {
             console.error(
                 error,

@@ -16,13 +16,14 @@ import AccountSettings from './pages/account/AccountSettings';
 import ProtectedRoutes from '@/utils/ProtectedRoutes';
 
 function App() {
-    const { fetchCurrentUser} = useAuthActions();
+    const { fetchCurrentUser, setIsAuthenticated } = useAuthActions();
 
     useEffect(() => {
-        fetchCurrentUser();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-    
+        fetchCurrentUser()
+            .then(() => setIsAuthenticated(true))
+            .catch(() => setIsAuthenticated(false));
+    }, [fetchCurrentUser, setIsAuthenticated]);
+
     return (
         <>
             <BrowserRouter>

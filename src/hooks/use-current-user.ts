@@ -4,13 +4,13 @@ import { useAuthActions } from '@/store/auth-action.ts';
 
 export default function useCurrentUser() {
     const { fetchCurrentUser } = useAuthActions();
-    const isAuthInitialized = useAuthStore((state) => state.isAuthInitialized);
+    const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
     return useQuery({
         queryKey: ['currentUser'],
         queryFn: fetchCurrentUser,
         retry: false,
-        enabled: !isAuthInitialized,
+        enabled: !isAuthenticated,
         staleTime: 1000 * 60 * 5,
     });
 }
