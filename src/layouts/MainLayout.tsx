@@ -6,8 +6,11 @@ import Header from '@/components/global/Header';
 import Wrapper from '@/components/global/Wrapper';
 import { useAuthStore } from '@/store/auth-store.ts';
 import Loader from '@/components/global/Loader';
+import useCurrentUser from '@/hooks/use-current-user';
 
 export default function MainLayout() {
+    useCurrentUser(); // Fetch current user data
+    
     const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
     const isAuthInitialized = useAuthStore((state) => state.isAuthInitialized);
 

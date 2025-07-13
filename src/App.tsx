@@ -1,7 +1,4 @@
 import { BrowserRouter, Routes, Route } from 'react-router';
-import { useEffect } from 'react';
-
-import { useAuthActions } from '@/store/auth-action.ts';
 
 import MainLayout from '@/layouts/MainLayout';
 import GameLayout from '@/layouts/GameLayout';
@@ -18,12 +15,6 @@ import AccountSettings from './pages/account/AccountSettings';
 import ProtectedRoutes from '@/utils/ProtectedRoutes';
 
 function App() {
-    const { fetchCurrentUser } = useAuthActions();
-
-    useEffect(() => {
-        fetchCurrentUser();
-    }, [fetchCurrentUser]);
-
     return (
         <>
             <BrowserRouter>

@@ -1,16 +1,17 @@
 import {useQuery} from '@tanstack/react-query';
-import {useAuthStore} from '@/store/auth-store';
+import { useAuthStore } from '@/store/auth-store';
 import {useAuthActions} from "@/store/auth-action.ts";
 
 export default function useCurrentUser() {
     const {fetchCurrentUser} = useAuthActions();
-    const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+    const isAuthInitialized = useAuthStore((state) => state.isAuthInitialized);
+
 
     return useQuery({
         queryKey: ['currentUser'],
         queryFn: fetchCurrentUser,
         retry: false,
-        enabled: isAuthenticated,
+        enabled: !isAuthInitialized,
         staleTime: 1000 * 60 * 5,
     });
 }
