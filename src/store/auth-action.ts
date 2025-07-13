@@ -8,6 +8,7 @@ import {
 } from '@/services/auth-services.ts';
 import { updateUserPassword } from '@/services/user-services.ts';
 import { useAuthStore } from '@/store/auth-store.ts';
+import { queryClient } from '@/main';
 
 export type AuthAction = {
     fetchCurrentUser: () => Promise<User | null>;
@@ -153,6 +154,7 @@ export const useAuthActions = create<AuthAction>()(() => ({
                 currentUser: null,
                 isAuthenticated: false,
             });
+            queryClient.removeQueries({ queryKey: ['currentUser'] });
             console.log('déconnexion réussie');
         } catch (error) {
             console.error(
