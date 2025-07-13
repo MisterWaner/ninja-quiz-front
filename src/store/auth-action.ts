@@ -10,6 +10,34 @@ import { updateUserPassword } from '@/services/user-services.ts';
 import { useAuthStore } from '@/store/auth-store.ts';
 import { queryClient } from '@/main';
 
+const initialAuthState = {
+    currentUser: null,
+    isAuthenticated: false,
+    isAuthInitialized: false,
+    loginFeedback: {
+        status: '',
+        message: '',
+        style: '',
+        buttonStyle: '',
+    },
+    registerFeedback: {
+        status: '',
+        message: '',
+        style: '',
+        buttonStyle: '',
+    },
+    updateFeedback: {
+        status: '',
+        message: '',
+        style: '',
+        buttonStyle: '',
+    },
+    showUpdatePasswordModal: false,
+    showLoginModal: false,
+    showRegisterModal: false,
+    loading: false,
+};
+
 export type AuthAction = {
     fetchCurrentUser: () => Promise<User | null>;
     loginUser: (user: User) => Promise<void>;
@@ -151,14 +179,12 @@ export const useAuthActions = create<AuthAction>()(() => ({
     logoutUser: async () => {
         try {
             await logoutUser();
+            useAuthStore.setState(initialAuthState);
             localStorage.removeItem('auth-store');
             localStorage.removeItem('score');
-            useAuthStore.setState({
-                currentUser: null,
-                isAuthenticated: false,
-            });
             queryClient.removeQueries({ queryKey: ['currentUser'] });
             console.log('déconnexion réussie');
+            window.location.href = '/connexion';
         } catch (error) {
             console.error(
                 error,

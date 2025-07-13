@@ -70,12 +70,14 @@ export async function logout(): Promise<void> {
         }
 
         localStorage.removeItem('score');
+        localStorage.removeItem('auth-store');
         console.log('déconnexion réussie');
     } catch (error) {
         console.error(error, 'Une erreur est survenue lors de la déconnexion');
         throw error;
     } finally {
         localStorage.removeItem('score');
+        localStorage.removeItem('auth-store');
     }
 }
 
