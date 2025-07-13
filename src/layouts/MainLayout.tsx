@@ -10,9 +10,10 @@ import Loader from '@/components/global/Loader';
 
 export default function MainLayout() {
     const { data: currentUser } = useCurrentUser();
-    const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+    //const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+    const isAuthInitialized = useAuthStore((state) => state.isAuthInitialized);
 
-    if (!isAuthenticated) return <Loader />;
+    if (!isAuthInitialized) return <Loader />;
 
     return (
         <SidebarProvider>
