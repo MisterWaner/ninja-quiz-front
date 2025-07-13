@@ -26,6 +26,7 @@ export type AuthState = {
     showRegisterModal: boolean;
     currentUser: User | null;
     isAuthenticated: boolean;
+    isAuthInitialized: boolean;
     loading: boolean;
 };
 
@@ -55,6 +56,7 @@ export const useAuthStore = create<AuthState>()(
             showRegisterModal: false,
             currentUser: null,
             isAuthenticated: false,
+            isAuthInitialized: false,
             loading: false,
         }),
         {
