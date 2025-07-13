@@ -32,7 +32,7 @@ export async function register(user: User): Promise<void> {
     }
 }
 
-export async function login(user: User) {
+export async function login(user: User): Promise<void> {
     try {
         const response = await fetch(`${BASE_URL}/auth/login`, {
             method: 'POST',
@@ -50,13 +50,16 @@ export async function login(user: User) {
         if (!response.ok) {
             throw new Error('Erreur lors de la connexion');
         }
+
+        const responseData = await response.json();
+        return responseData;
     } catch (error) {
         console.error(error, 'Une erreur est survenue lors de la connexion');
         throw error;
     }
 }
 
-export async function logout() {
+export async function logout(): Promise<void> {
     try {
         const response = await fetch(`${BASE_URL}/auth/logout`, {
             method: 'POST',
