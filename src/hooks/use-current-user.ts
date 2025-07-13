@@ -10,7 +10,7 @@ export default function useCurrentUser() {
         queryKey: ['currentUser'],
         queryFn: fetchCurrentUser,
         retry: false,
-        enabled: !isAuthenticated,
+        enabled: isAuthenticated,
         staleTime: 1000 * 60 * 5,
     });
 }

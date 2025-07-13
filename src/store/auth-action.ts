@@ -13,7 +13,6 @@ import { queryClient } from '@/main';
 const initialAuthState = {
     currentUser: null,
     isAuthenticated: false,
-    isAuthInitialized: false,
     loginFeedback: {
         status: '',
         message: '',
@@ -47,7 +46,6 @@ export type AuthAction = {
     resetRegisterModal: () => void;
     resetUpdatePasswordModal: () => void;
     setIsAuthenticated: (value: boolean) => void;
-    setAuthInitialized: (value: boolean) => void;
     setShowLoginModal: (showLoginModal: boolean) => void;
     setShowRegisterModal: (showRegisterModal: boolean) => void;
     setShowUpdatePasswordModal: (showUpdatePasswordModal: boolean) => void;
@@ -58,8 +56,6 @@ export type AuthAction = {
 };
 
 export const useAuthActions = create<AuthAction>()(() => ({
-    setAuthInitialized: (value: boolean) =>
-        useAuthStore.setState({ isAuthInitialized: value }),
     loginUser: async (user: User) => {
         try {
             await loginUser(user);
@@ -172,7 +168,7 @@ export const useAuthActions = create<AuthAction>()(() => ({
             });
             throw error;
         } finally {
-            useAuthStore.setState({ loading: false, isAuthInitialized: true });
+            useAuthStore.setState({ loading: false });
         }
     },
 
