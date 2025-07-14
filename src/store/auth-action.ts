@@ -7,10 +7,9 @@ import {
     getCurrentUser as getUser,
 } from '@/services/auth-services.ts';
 import { updateUserPassword } from '@/services/user-services.ts';
-import { useAuthStore, type AuthState } from '@/store/auth-store.ts';
+import { useAuthStore } from '@/store/auth-store.ts';
 import { queryClient } from '@/main';
 
-const initialAuthState: AuthState = useAuthStore.getState();
 
 export type AuthAction = {
     fetchCurrentUser: () => Promise<User | null>;
@@ -152,7 +151,6 @@ export const useAuthActions = create<AuthAction>()(() => ({
         try {
             await logoutUser();
             useAuthStore.setState({
-                ...initialAuthState,
                 currentUser: null,
                 isAuthenticated: false,
                 isAuthInitialized: true,
