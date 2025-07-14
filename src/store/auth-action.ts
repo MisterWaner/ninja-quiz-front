@@ -154,7 +154,7 @@ export const useAuthActions = create<AuthAction>()(() => ({
             useAuthStore.setState({
                 ...initialAuthState,
                 currentUser: null,
-                isAuthenticated: false,
+                isAuthenticated: true,
             });
             useAuthStore.persist.clearStorage();
 
