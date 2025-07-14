@@ -4,7 +4,6 @@ import {
     register as registerUser,
     login as loginUser,
     logout as logoutUser,
-    getCurrentUser as getUser,
 } from '@/services/auth-services.ts';
 import { updateUserPassword } from '@/services/user-services.ts';
 import { useAuthStore } from '@/store/auth-store.ts';
@@ -12,7 +11,6 @@ import { queryClient } from '@/main';
 
 
 export type AuthAction = {
-    fetchCurrentUser: () => Promise<User | null>;
     loginUser: (user: User) => Promise<void>;
     logoutUser: () => Promise<void>;
     registerUser: (user: User) => Promise<void>;
@@ -20,7 +18,6 @@ export type AuthAction = {
     resetRegisterModal: () => void;
     resetUpdatePasswordModal: () => void;
     setIsAuthenticated: (value: boolean) => void;
-    setIsAuthInitialized: (value: boolean) => void;
     setShowLoginModal: (showLoginModal: boolean) => void;
     setShowRegisterModal: (showRegisterModal: boolean) => void;
     setShowUpdatePasswordModal: (showUpdatePasswordModal: boolean) => void;
@@ -122,38 +119,12 @@ export const useAuthActions = create<AuthAction>()(() => ({
         }
     },
 
-    fetchCurrentUser: async (): Promise<User | null> => {
-        useAuthStore.setState({ loading: true });
-        try {
-            const user = await getUser();
-            if (!user) {
-                useAuthStore.setState({
-                    currentUser: null,
-                    isAuthenticated: false,
-                });
-                return null;
-            }
-            useAuthStore.setState({ currentUser: user, isAuthenticated: true });
-            return user as User;
-        } catch (error) {
-            console.error(error);
-            useAuthStore.setState({
-                currentUser: null,
-                isAuthenticated: false,
-            });
-            throw error;
-        } finally {
-            useAuthStore.setState({ loading: false, isAuthInitialized: true });
-        }
-    },
-
     logoutUser: async () => {
         try {
             await logoutUser();
             useAuthStore.setState({
                 currentUser: null,
                 isAuthenticated: false,
-                isAuthInitialized: true,
             });
             useAuthStore.persist.clearStorage();
 
@@ -209,6 +180,4 @@ export const useAuthActions = create<AuthAction>()(() => ({
     },
     setIsAuthenticated: (value: boolean) =>
         useAuthStore.setState({ isAuthenticated: value }),
-    setIsAuthInitialized: (value: boolean) =>
-        useAuthStore.setState({ isAuthInitialized: value }),
 }));

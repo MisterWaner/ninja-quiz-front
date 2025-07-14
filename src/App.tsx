@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router';
 import { useEffect } from 'react';
+import useCurrentUser from './hooks/use-current-user';
 import { useAuthActions } from './store/auth-action';
 import MainLayout from '@/layouts/MainLayout';
 import GameLayout from '@/layouts/GameLayout';
@@ -16,13 +17,16 @@ import AccountSettings from './pages/account/AccountSettings';
 import ProtectedRoutes from '@/utils/ProtectedRoutes';
 
 function App() {
-    const { fetchCurrentUser, setIsAuthenticated } = useAuthActions();
+    const { setIsAuthenticated } = useAuthActions();
+    const { data: currentUser } = useCurrentUser();
 
     useEffect(() => {
-        fetchCurrentUser()
-            .then(() => setIsAuthenticated(true))
-            .catch(() => setIsAuthenticated(false));
-    }, [fetchCurrentUser, setIsAuthenticated]);
+        if (currentUser) {
+            setIsAuthenticated(true);
+        } else {
+            setIsAuthenticated(false);
+        }
+    }, [currentUser, setIsAuthenticated]);
 
     return (
         <>

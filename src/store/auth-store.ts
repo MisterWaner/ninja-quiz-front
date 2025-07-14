@@ -26,7 +26,6 @@ export type AuthState = {
     showRegisterModal: boolean;
     currentUser: User | null;
     isAuthenticated: boolean;
-    isAuthInitialized: boolean;
     loading: boolean;
 };
 
