@@ -7,36 +7,10 @@ import {
     getCurrentUser as getUser,
 } from '@/services/auth-services.ts';
 import { updateUserPassword } from '@/services/user-services.ts';
-import { useAuthStore } from '@/store/auth-store.ts';
+import { useAuthStore, type AuthState } from '@/store/auth-store.ts';
 import { queryClient } from '@/main';
 
-const initialAuthState = {
-    currentUser: null,
-    isAuthenticated: false,
-    isAuthInitialized: false,
-    loginFeedback: {
-        status: '',
-        message: '',
-        style: '',
-        buttonStyle: '',
-    },
-    registerFeedback: {
-        status: '',
-        message: '',
-        style: '',
-        buttonStyle: '',
-    },
-    updateFeedback: {
-        status: '',
-        message: '',
-        style: '',
-        buttonStyle: '',
-    },
-    showUpdatePasswordModal: false,
-    showLoginModal: false,
-    showRegisterModal: false,
-    loading: false,
-};
+const initialAuthState: AuthState = useAuthStore.getState();
 
 export type AuthAction = {
     fetchCurrentUser: () => Promise<User | null>;
@@ -179,8 +153,11 @@ export const useAuthActions = create<AuthAction>()(() => ({
             await logoutUser();
             useAuthStore.setState({
                 ...initialAuthState,
-                isAuthInitialized: true,
+                currentUser: null,
+                isAuthenticated: false,
             });
+            useAuthStore.persist.clearStorage();
+
             localStorage.removeItem('auth-store');
             localStorage.removeItem('score');
             queryClient.removeQueries({ queryKey: ['currentUser'] });

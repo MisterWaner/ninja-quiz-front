@@ -5,19 +5,19 @@ import PublicSideBar from '@/components/SideBar/PublicSideBar';
 import Header from '@/components/global/Header';
 import Wrapper from '@/components/global/Wrapper';
 import { useAuthStore } from '@/store/auth-store.ts';
-import useCurrentUser from '@/hooks/use-current-user.ts';
+//import useCurrentUser from '@/hooks/use-current-user.ts';
 import Loader from '@/components/global/Loader';
 
 export default function MainLayout() {
-    const { data: currentUser } = useCurrentUser();
-    //const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+    //const { data: currentUser } = useCurrentUser();
+    const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
     const isAuthInitialized = useAuthStore((state) => state.isAuthInitialized);
 
     if (!isAuthInitialized) return <Loader />;
 
     return (
         <SidebarProvider>
-            {currentUser ? <AccountSideBar /> : <PublicSideBar />}
+            {isAuthenticated ? <AccountSideBar /> : <PublicSideBar />}
             <Header />
             <main className='relative top-28 w-full h-[calc(100dvh-112px)]'>
                 <SidebarTrigger
